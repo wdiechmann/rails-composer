@@ -1563,6 +1563,9 @@ RUBY
           "  \\2\n  extend Rolify\n  \\1\n"
     end
   end
+  if Rails::VERSION::MAJOR.to_s=='4'
+    gsub_file 'app/models/user.rb', /(attr_access.*$)/, "#\\1"
+  end
   ### GIT ###
   git :add => '-A' if prefer :git, true
   git :commit => '-qm "rails_apps_composer: models"' if prefer :git, true
