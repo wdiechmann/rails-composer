@@ -918,7 +918,7 @@ if prefer :bootstrap, 'less'
   add_gem 'twitter-bootstrap-rails', :group => :assets
   # install gem 'therubyracer' to use Less
   add_gem 'libv8'
-  add_gem 'therubyracer', :group => :assets, :platform => :ruby, :require => 'v8'
+  add_gem 'therubyracer', '~> 0.11.4', :group => :assets, :platform => :ruby, :require => 'v8'
 end
 
 ## Email
