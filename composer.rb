@@ -1510,6 +1510,10 @@ RUBY
         generate 'migration AddNameToUsers name:string'
       end
       copy_from_repo 'app/models/user.rb', :repo => 'https://raw.github.com/RailsApps/rails3-devise-rspec-cucumber/master/'
+      if Rails::VERSION::MAJOR.to_s=='4'
+        gsub_file 'app/models/user.rb', /(attr_access.*$)/, "#\\1"
+      end
+
       if (prefer :devise_modules, 'confirmable') || (prefer :devise_modules, 'invitable')
         gsub_file 'app/models/user.rb', /:registerable,/, ":registerable, :confirmable,"
         generate 'migration AddConfirmableToUsers confirmation_token:string confirmed_at:datetime confirmation_sent_at:datetime unconfirmed_email:string'
@@ -1562,9 +1566,6 @@ RUBY
           /^\s*(rolify.*?)$\s*(include Mongoid::Document.*?)$/,
           "  \\2\n  extend Rolify\n  \\1\n"
     end
-  end
-  if Rails::VERSION::MAJOR.to_s=='4'
-    gsub_file 'app/models/user.rb', /(attr_access.*$)/, "#\\1"
   end
   ### GIT ###
   git :add => '-A' if prefer :git, true
